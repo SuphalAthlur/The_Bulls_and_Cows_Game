@@ -1,2 +1,2 @@
 # The_Bulls_and_Cows_Game
-Website dedicated to implementing a variant of 'The Bulls &amp; Cows Game' which is a popular decoding-based game with a history dating back to the initial days of cyber security research in which it constituted an important case study.
+A collection of webpages dedicated to implementing a variant of 'The Bulls and Cows Game' which is a popular decoding / code guessing based game with a history dating back to the initial days of cyber security research in which it constituted an important case study. The game involves a logical analysis of available data at each stage to make appropriate queries in order to guess your opponent's code within the least number of turns.
