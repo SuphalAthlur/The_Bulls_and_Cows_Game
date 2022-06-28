@@ -1,0 +1,338 @@
+body{
+	max-width: 1200px;
+}
+
+header{
+	font-family: "Brush Script MT",cursive;
+}
+
+header ul.gameHeading{
+	margin: 0px auto;
+	white-space: nowrap;
+	display: block;
+	padding: 15px;
+	box-sizing: border-box;
+	text-align: center;
+	/*background-color: #85B9DC;*/
+	background-color: #D89E77;
+	/*background-color: #899499;*/
+}
+
+header ul .clipart{
+	height: 80px;
+	display: inline-block;
+	padding: 10px;
+	border: 2px solid black;
+	border-radius: 10px;
+	box-sizing: border-box;
+}
+
+header ul .gameHeading{
+	display: inline-block;
+	position: relative;
+	top:  -12px;
+	max-width: 70%;
+
+	font-size: 60px;
+	color: white;
+
+	padding: 0px 30px;
+	box-sizing: border-box;
+	white-space: none;
+	word-wrap: break-word;
+}
+
+header br{
+	display: none;
+}
+
+header ul img{
+	max-height: 100%;
+}
+
+img{
+	max-width: 100%;
+}
+
+header section{
+	display: none;
+	position: absolute;
+	text-align: center;
+	color: white;
+	max-width: 100%;
+	background-color: #D89E77;
+}
+
+nav{
+	background-color: #D89E77;
+	position: relative;
+	top: -8px;
+	max-width: 100%;
+	margin: 0px;
+	padding: 20px;
+}
+
+nav ul{
+	margin: 0px 0px auto;
+	padding: 0px 0px;
+	max-width: 100%;
+	display: block;
+	box-sizing: border-box;
+	font-family: "Calibri",sans-serif;
+	font-size: 25px;
+	white-space: nowrap;
+}
+
+nav ul .first{
+	color: white;
+}
+
+nav ul li{
+	width: 33%;
+	display: inline-block;
+	text-align: center;
+}
+
+a{
+	text-decoration: none;
+	color: inherit;
+}
+
+nav ul a{
+	color: #800000;
+	font-weight: bold;
+}
+
+nav ul a:hover{
+	text-decoration: underline;
+	color: #353935;
+	font-weight: bolder;
+}
+
+.cows{
+	display: inline;
+	color: #353935;
+	font-size:  1.2em;
+	font-weight: bold;
+}
+
+.bulls{
+	display: inline;
+	color: #800000;
+	font-size: 1.2em;
+	font-weight: bold;
+
+}
+
+article.trivia{
+	position: relative;
+	top: -8px;
+	margin: 0px auto;
+	padding: 45px;
+	background-color: #B6D0E2;
+	/*color: #00008B;*/
+	box-sizing: border-box;
+	text-align: center;
+}
+
+article.trivia h2{
+	text-align: center;
+	display: block;
+	font-size: 50px;
+	padding: 0px 0px 30px 0px;
+	margin: 0px auto;
+	color: #00008B;
+}
+
+article.trivia div{
+	width: 45%;
+	display: inline-block;
+	text-align: justify;
+	font-size: 18px;
+	line-height: 24px;
+	padding: 0px;
+	margin: 0px auto;
+	vertical-align: top;
+}
+
+article.trivia div ul{
+	margin: 0px auto;
+	display: block;
+	padding: 5px;
+	/*white-space: nowrap;*/
+}
+
+article.trivia div li{
+	display: inline-block;
+	padding: 0px 10px;
+	/*border: 2px solid black;*/
+	/*border-radius: 10px;*/
+}
+
+article.trivia br.tgl{
+	display: none;
+}
+
+footer{
+	padding: 30px;
+	position: relative;
+	top: -10px;
+	background-color: lightgrey;
+	font-size: 13px;
+	text-align: center;
+	max-width: 100%;
+	font-family: sans-serif;
+	color: #808080;
+}
+
+footer span{
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 940px)
+{
+	header ul .gameHeading{
+		top:  0px;
+		font-size: 40px;
+		padding: 0px 15px;
+		font-weight: normal;
+		line-height: 35px;
+	}
+	header br{
+		display: inline;
+	}
+	nav ul{
+		font-size: 20px;
+		font-weight: normal;
+	}
+	article.trivia{
+		padding: 25px;
+	}
+	article.trivia h2{
+		font-size: 40px;
+		padding: 0px;
+	}
+	article.trivia div{
+		font-size: 14px;
+		line-height: 19px;
+	}
+	article.trivia br{
+		display: inline;
+	}
+	footer{
+		font-size: 11px;
+		padding: 18px;
+	}
+}
+
+@media screen and (max-width: 620px)
+{
+	header ul .gameHeading{
+		display: none;
+	}
+	header ul .clipart{
+		height: 80px;
+	}
+	header section{
+		display: block;
+		position: relative;
+		font-size: 30px;
+		/*font-weight: bolder;*/
+	}
+	header section span{
+		display: inline-block;
+		padding: 5px 20px;
+		margin: 0px 0px 15px 0px;
+		border: 2px solid white;
+		border-radius: 60px;
+	}
+	nav{
+		padding: 5px;
+	}
+	nav ul{
+		font-size: 20px;
+	}
+	nav ul li{
+		display: block;
+		width: 100%;
+		padding: 2px;
+	}
+	article.trivia div{
+		font-size: 13px;
+		width: 100%;
+		text-align: left;
+	}
+	article.trivia h2{
+		font-size: 30px;
+		padding: 5px 0px 15px 0px;
+	}
+	footer{
+		font-size: 10px;
+		padding: 10px;
+	}
+}
+
+.inFocus{
+	text-decoration: underline;
+	font-size: 1.3em;
+}
+
+div.contain{
+	white-space: nowrap;
+	padding: 50px 0px;
+	position: relative;
+	top: -9px;
+}
+
+div.contain section.resp{
+	margin: 15px 0px;
+	display: inline-block;
+	padding: 15px;
+	width: 45%;
+	border-radius: 100px;
+	text-align: center;
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+div.contain section.resp:hover{
+	border-style: solid;
+	border-width: 2px;
+	/*background-color: green;*/
+}
+
+div.contain section.resp h2{
+	font-size: 1.2em;
+	margin: 0px auto;
+}
+
+div.contain section.resp .cowrep,div.contain section.resp .bullrep{
+	line-height: 25px;
+}
+
+div.contain section.p{
+	border: 5px dashed green;
+	color: darkgreen;
+}
+
+div.contain section.p:hover{
+	background-color: lightgreen;
+	color: black;
+}
+
+div.contain section.s{
+	border: 5px dashed red;
+	color: maroon;
+	position: relative;
+	left: 10%;
+}
+
+div.contain section.s:hover{
+	background-color: #FFCCCB;
+	color: black;
+}
+
+.invisible{
+	display: none;
+}
