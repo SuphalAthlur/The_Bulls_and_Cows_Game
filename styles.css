@@ -1,5 +1,5 @@
 body{
-	max-width: 1200px;
+	max-width: 1600px;
 }
 
 header{
@@ -286,19 +286,19 @@ div.contain{
 }
 
 div.contain section.resp{
-	margin: 15px 0px;
 	display: inline-block;
 	padding: 15px;
-	width: 45%;
+	width: 30%;
 	border-radius: 100px;
 	text-align: center;
-	font-size: 25px;
+	font-size: 20px;
 	box-sizing: border-box;
+	vertical-align: top;
 }
 
 div.contain section.resp:hover{
 	border-style: solid;
-	border-width: 2px;
+	border-width: 4px;
 	/*background-color: green;*/
 }
 
@@ -307,13 +307,13 @@ div.contain section.resp h2{
 	margin: 0px auto;
 }
 
-div.contain section.resp .cowrep,div.contain section.resp .bullrep{
-	line-height: 25px;
+div.contain section.p{
+	border: 4px double green;
+	color: darkgreen;
 }
 
-div.contain section.p{
-	border: 5px dashed green;
-	color: darkgreen;
+div.contain section.left{
+	margin: 15px 5% 15px 15%;
 }
 
 div.contain section.p:hover{
@@ -322,10 +322,12 @@ div.contain section.p:hover{
 }
 
 div.contain section.s{
-	border: 5px dashed red;
+	border: 4px double red;
 	color: maroon;
-	position: relative;
-	left: 10%;
+}
+
+div.contain section.right{
+	margin: 15px 15% 15px 5%;
 }
 
 div.contain section.s:hover{
@@ -335,4 +337,62 @@ div.contain section.s:hover{
 
 .invisible{
 	display: none;
+}
+
+form {
+	margin: 0px;
+	padding: 0px;
+}
+
+section.resp.p form input[type="number"]{
+	width: 100px;
+}
+
+section.resp.s form input[type="number"]{
+	width: 30px;
+}
+
+div.ready{
+	text-align: center;
+	align-content: center;
+	padding: 30px;
+}
+
+#begin{
+	padding: 20px;
+	width: 300px;
+	font-size: 30px;
+	font-weight: bold;
+	background-color: lightgrey;
+	color: maroon;
+	text-align: center;
+	border-radius: 50px;
+	border-width: 6px;
+}
+
+#begin:hover{
+	color: red;
+}
+
+#toss{
+	padding: 20px;
+	display: inline-block;
+	border: 2px solid darkblue;
+	color: maroon;
+	border-radius: 40px;
+	width: 300px;
+}
+
+#toss h1,#toss h2{
+	padding: 0px;
+	line-height: 15px;
+}
+#toss h2{
+	color: #353932;
+}
+
+#toss .inpBtn {
+	width: 80px;
+	height: 40px;
+	margin: 0px 20px;
 }

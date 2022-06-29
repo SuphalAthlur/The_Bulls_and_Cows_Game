@@ -51,6 +51,44 @@ let sysInd=Math.floor(Math.random()*10000000);
 sysInd%=sys.length;
 let sysNum=sys[sysInd];
 
+function begintoss(){
+	document.querySelector("div.ready").innerHTML = `
+		<div id="toss">
+			<h1>Call!</h1>
+			<h2>Winner goes first</h2>
+			<input type="button" class="inpBtn" value="Heads" onclick="toss(Heads)">
+			<input type="button" class="inpBtn" value="Tails" onclick="toss(Tails)">
+		</toss>
+	`;
+}
+
+function toss(choice){
+	let coin=Math.floor((Math.random()*10000000))%2;
+	let verdict="Heads";
+	if (coin==1) verdict="Tails";
+	document.querySelector("#toss").remove();
+	document.querySelector("div.ready").innerHTML += `
+		<div id="toss">
+			<h1>It's ${verdict}!</h1>
+			<h2>You have chosen ${choice}</h2>
+			<input type="button" class="inpBtn" onclick="initiate()" value="proceed">
+		</div>
+	`;
+}
+
+function initiate(){
+	document.querySelector("#begin").remove();
+	document.querySelector("div.contain").innerHTML +=
+		`<section id="userBox" class="resp p left">
+			<form onsubmit="return false;">
+				<input type="reset" id="userReset" style="position: fixed; left: -200px; display: none;">
+				<h2><label for="userquery" id="labelQuery">Make a Guess!</label></h2><br>
+				<input type="number" id="userquery" placeholder="Guess wise"><br>
+				<input type="submit" id="submitButtonUser" value="Confirm" onclick="userResp()">
+			</form>
+		</section>`;
+}
+
 function userResp (){
 	// Read query from user
 	let t=document.querySelector("#userquery").value;
@@ -98,7 +136,7 @@ function userResp (){
 
 	// Display the query result
 	document.querySelector("#userBox").remove();
-	document.querySelector("body div.contain").innerHTML += `<section class="resp p"><a>
+	document.querySelector("body div.contain").innerHTML += `<section class="resp p left"><a>
 		<h2><span>Guess ${turn}:</span> ${userNum}</h2><br>
 		<div class="bullrep">Bulls: ${retBulls}</div>
 		<div class="cowrep">Cows: ${retCows}</div>
@@ -164,10 +202,11 @@ function userResp (){
 	sysQuery.push(sysQ);
 
 	// Fetch user response
-	document.querySelector("body div.contain").innerHTML += `<section id="sysBox" class="resp s">
+	document.querySelector("body div.contain").innerHTML += `<section id="sysBox" class="resp s right">
 		<form onsubmit="return false;">
 			<h2>Guess ${turn}: ${sysQ}</h2>
 			<input type="reset" id="sysReset" style="position: fixed; left: -200px; display: none;">
+			<div>
 			<label for="sysquerybulls" id="labelQuery2">Bulls: </label>
 			<input type="number" id="sysquerybulls" required><br>
 			<label for="sysquerycows" id="labelQuery1">Cows: </label>
@@ -175,6 +214,7 @@ function userResp (){
 			<input type="submit" id="submitButtonSys" value="Confirm" onclick="sysResp()">
 		</form>
 	</section>`;
+	document.querySelector("#sysquerybulls").focus();
 	return;
 }
 
@@ -206,7 +246,7 @@ function sysResp()
 		sysQDig.push(hold);
 	}
 	document.querySelector("#sysBox").remove();
-	document.querySelector("body div.contain").innerHTML += `<section class="resp s"><a>
+	document.querySelector("body div.contain").innerHTML += `<section class="resp s right"><a>
 		<h2><span>Guess ${turn}:</span> ${sysQ}</h2><br>
 		<div class="bullrep">Bulls: ${userBulls}</div>
 		<div class="cowrep">Cows: ${userCows}</div>
@@ -232,17 +272,21 @@ function sysResp()
 	// Alert user [YET]
 	if (validCount==0){
 		alert('Nonsense');
+		document.querySelector("nav .inFocus").click();
 		victor++;
 	}
 	if (victor==0)
-		document.querySelector("body div.contain").innerHTML += `<section id="userBox" class="resp p">
-		<form onsubmit="return false;">
-			<input type="reset" id="userReset" style="position: fixed; left: -200px; display: none;">
-			<label for="userquery" id="labelQuery">Provide Query</label><br>
-			<input type="number" id="userquery" required><br>
-			<input type="submit" id="submitButtonUser" value="Confirm" onclick="userResp()">
-		</form>
-	</section>`;
+		document.querySelector("body div.contain").innerHTML += `
+			<section id="userBox" class="resp p left">
+				<form onsubmit="return false;">
+					<input type="reset" id="userReset" style="position: fixed; left: -200px; display: none;">
+					<label for="userquery" id="labelQuery">Make a Guess!</label><br>
+					<input type="number" id="userquery" required><br>
+					<input type="submit" id="submitButtonUser" value="Confirm" onclick="userResp()">
+				</form>
+			</section>
+		`;
+	document.querySelector("#userquery").focus();
 	turn++;
 	return;
 }
