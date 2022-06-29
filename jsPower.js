@@ -3,6 +3,11 @@ let sys=[];
 let sysDig=[[],[],[],[]];
 let valid=[];
 let sysQ=0;
+let pFirst=true;
+let player="left";
+let system="right";
+let sysInd=0;
+let sysNum=0;
 
 // Provides status of the game
 let victor=0;
@@ -10,54 +15,46 @@ let turn=1;
 let sysQuery=[];
 let userQuery=[];
 
-// Event listeners
-// let sysWatcher=document.getElementById("submitButtonSys");
-// if (sysWatcher) sysWatcher.addEventListener("click", function (event) {
-// 	event.preventDefault();
-// });
-// let userWatcher=document.getElementById("submitButtonUser");
-// if (userWatcher) userWatcher.addEventListener("click", function (event) {
-// 	event.preventDefault();
-// });
-
-// Generates the sample space 
-for (let i=1023; i<=9876; i++){
-	let temp=i;
-	let d=[];
-	let alright=true;
-	for (let j=0; j<4 && alright; j++){
-		let hold=temp%10;
-		temp-=hold;
-		temp/=10;
-		for (let k=0; k<d.length; k++){
-			if (d[k]==hold){
-				alright=false;
-				break;
+// Generates the sample space
+function preCompute(){
+	for (let i=1023; i<=9876; i++){
+		let temp=i;
+		let d=[];
+		let alright=true;
+		for (let j=0; j<4 && alright; j++){
+			let hold=temp%10;
+			temp-=hold;
+			temp/=10;
+			for (let k=0; k<d.length; k++){
+				if (d[k]==hold){
+					alright=false;
+					break;
+				}
+			}
+			d.push(hold);
+		}
+		if (alright){
+			sys.push(i);
+			valid.push(true);
+			for (let j=0; j<4; j++){
+				sysDig[j].push(d[j]);
 			}
 		}
-		d.push(hold);
 	}
-	if (alright){
-		sys.push(i);
-		valid.push(true);
-		for (let j=0; j<4; j++){
-			sysDig[j].push(d[j]);
-		}
-	}
-}
 
-// Allots a random number to the system
-let sysInd=Math.floor(Math.random()*10000000);
-sysInd%=sys.length;
-let sysNum=sys[sysInd];
+	// Allots a random number to the system
+	sysInd=Math.floor(Math.random()*10000000);
+	sysInd%=sys.length;
+	sysNum=sys[sysInd];
+}
 
 function begintoss(){
 	document.querySelector("div.ready").innerHTML = `
 		<div id="toss">
 			<h1>Call!</h1>
 			<h2>Winner goes first</h2>
-			<input type="button" class="inpBtn" value="Heads" onclick="toss(Heads)">
-			<input type="button" class="inpBtn" value="Tails" onclick="toss(Tails)">
+			<input type="button" class="inpBtn" value="Heads" onclick="toss('Heads')">
+			<input type="button" class="inpBtn" value="Tails" onclick="toss('Tails')">
 		</toss>
 	`;
 }
@@ -67,26 +64,41 @@ function toss(choice){
 	let verdict="Heads";
 	if (coin==1) verdict="Tails";
 	document.querySelector("#toss").remove();
+	if (verdict!==choice){
+		pFirst=false;
+		player="right";
+		system="left";
+	}
 	document.querySelector("div.ready").innerHTML += `
 		<div id="toss">
-			<h1>It's ${verdict}!</h1>
 			<h2>You have chosen ${choice}</h2>
-			<input type="button" class="inpBtn" onclick="initiate()" value="proceed">
+			<h1>It's ${verdict}!</h1>
+			<input type="button" class="inpBtn" onclick="initiate()" value="Proceed">
 		</div>
 	`;
+	// document.querySelector(".inpBtn").focus();
 }
 
 function initiate(){
-	document.querySelector("#begin").remove();
-	document.querySelector("div.contain").innerHTML +=
-		`<section id="userBox" class="resp p left">
-			<form onsubmit="return false;">
-				<input type="reset" id="userReset" style="position: fixed; left: -200px; display: none;">
-				<h2><label for="userquery" id="labelQuery">Make a Guess!</label></h2><br>
-				<input type="number" id="userquery" placeholder="Guess wise"><br>
-				<input type="submit" id="submitButtonUser" value="Confirm" onclick="userResp()">
-			</form>
-		</section>`;
+	document.querySelector("#toss").remove();
+	preCompute();
+	// document.querySelector("#toss").remove();
+	if (pFirst) {
+		document.querySelector("div.contain").innerHTML += `
+			<div class="sidebyside ${player}" id="userBox">
+				<section class="resp p ${player}">
+					<form onsubmit="return false;">
+						<input type="reset" id="userReset" style="position: fixed; left: -200px; display: none;">
+						<label for="userquery" id="labelQuery"><h2>Guess ${turn}:</h2></label><br>
+						<input type="number" id="userquery" placeholder="Guess wise"><br>
+						<input type="submit" id="submitButtonUser" value="Confirm" onclick="userResp()">
+					</form>
+				</section>
+			</div>
+		`;
+		document.querySelector("#userquery").focus();
+	}
+	else sysThink();
 }
 
 function userResp (){
@@ -133,19 +145,28 @@ function userResp (){
 			}
 		}
 	}
-
 	// Display the query result
 	document.querySelector("#userBox").remove();
-	document.querySelector("body div.contain").innerHTML += `<section class="resp p left"><a>
-		<h2><span>Guess ${turn}:</span> ${userNum}</h2><br>
-		<div class="bullrep">Bulls: ${retBulls}</div>
-		<div class="cowrep">Cows: ${retCows}</div>
-	</a></section>`;
+	document.querySelector("body div.contain").innerHTML += `
+		<div class="sidebyside ${player}">
+			<section class="resp p ${player}"><a>
+				<h2><span>Guess ${turn}:</span> ${userNum}</h2><br>
+				<div class="bullrep">Bulls: ${retBulls}</div>
+				<div class="cowrep">Cows: ${retCows}</div>
+			</a></section>
+		</div>
+	`;
+	if (!pFirst) document.querySelector("body div.contain").innerHTML += "<br>";
 	if (retBulls==4){
 		alert("You seem to have guessed the number. It is the system's turn now.");
 		victor++;
 	}
+	if (!pFirst) turn++;
+	sysThink();
+}
 
+function sysThink()
+{
 	// Produce system query
 	if (turn==1){
 		let ind=Math.floor(Math.random()*10000000);
@@ -164,7 +185,6 @@ function userResp (){
 				freq[j][sysDig[j][i]][1]++;
 			}
 		}
-
 		// Sort all frequencies
 		for (let i=0; i<4; i++){
 			for (let j=0; j<10; j++){
@@ -180,7 +200,6 @@ function userResp (){
 				}
 			}
 		}
-
 		// Construct query
 		let temp=-1;
 		for (let i=0; i<sys.length; i++){
@@ -200,22 +219,26 @@ function userResp (){
 		}
 	}
 	sysQuery.push(sysQ);
-
 	// Fetch user response
-	document.querySelector("body div.contain").innerHTML += `<section id="sysBox" class="resp s right">
-		<form onsubmit="return false;">
-			<h2>Guess ${turn}: ${sysQ}</h2>
-			<input type="reset" id="sysReset" style="position: fixed; left: -200px; display: none;">
-			<div>
-			<label for="sysquerybulls" id="labelQuery2">Bulls: </label>
-			<input type="number" id="sysquerybulls" required><br>
-			<label for="sysquerycows" id="labelQuery1">Cows: </label>
-			<input type="number" id="sysquerycows" required><br>
-			<input type="submit" id="submitButtonSys" value="Confirm" onclick="sysResp()">
-		</form>
-	</section>`;
+	document.querySelector("body div.contain").innerHTML += `
+		<div class="sidebyside ${system}" id="sysBox">
+			<section class="resp s ${system}">
+				<form onsubmit="return false">
+					<h2>Guess ${turn}: ${sysQ}</h2>
+					<input type="reset" id="sysReset" style="position: fixed; left: -200px; display: none;">
+					<div>
+					<label for="sysquerybulls" id="labelQuery2">Bulls: </label>
+					<input type="number" id="sysquerybulls" required><br>
+					<label for="sysquerycows" id="labelQuery1">Cows: </label>
+					<input type="number" id="sysquerycows" required><br>
+					<input type="submit" id="submitButtonSys" value="Confirm" onclick="sysResp()">
+				</form>
+			</section>
+		</div>
+	`;
 	document.querySelector("#sysquerybulls").focus();
-	return;
+	// alert ("Moi before");
+	// sysResp();
 }
 
 function sysResp()
@@ -223,7 +246,7 @@ function sysResp()
 	let uB=document.querySelector("#sysquerybulls").value;
 	let uC=document.querySelector("#sysquerycows").value;
 	if (uB==="" || uC===""){
-		alert("Fill all required fields.");
+		alert("Fill all required fields :)");
 		return;
 	}
 	let userBulls=(Number)(uB);
@@ -246,11 +269,16 @@ function sysResp()
 		sysQDig.push(hold);
 	}
 	document.querySelector("#sysBox").remove();
-	document.querySelector("body div.contain").innerHTML += `<section class="resp s right"><a>
-		<h2><span>Guess ${turn}:</span> ${sysQ}</h2><br>
-		<div class="bullrep">Bulls: ${userBulls}</div>
-		<div class="cowrep">Cows: ${userCows}</div>
-	</a></section><br>`;
+	document.querySelector("body div.contain").innerHTML += `
+		<div class="sidebyside ${system}">
+			<section class="resp s ${system}"><a>
+				<h2><span>Guess ${turn}:</span> ${sysQ}</h2><br>
+				<div class="bullrep">Bulls: ${userBulls}</div>
+				<div class="cowrep">Cows: ${userCows}</div>
+			</a></section>
+		</div>
+	`;
+	if (pFirst) document.querySelector("body div.contain").innerHTML += "<br>";
 	// update validities
 	let validCount=0;
 	for (let k=0; k<sys.length; k++){
@@ -275,18 +303,21 @@ function sysResp()
 		document.querySelector("nav .inFocus").click();
 		victor++;
 	}
-	if (victor==0)
+	if (victor==0){
+		if (pFirst) turn++;
 		document.querySelector("body div.contain").innerHTML += `
-			<section id="userBox" class="resp p left">
-				<form onsubmit="return false;">
-					<input type="reset" id="userReset" style="position: fixed; left: -200px; display: none;">
-					<label for="userquery" id="labelQuery">Make a Guess!</label><br>
-					<input type="number" id="userquery" required><br>
-					<input type="submit" id="submitButtonUser" value="Confirm" onclick="userResp()">
-				</form>
-			</section>
+			<div class="sidebyside ${player}" id="userBox">
+				<section class="resp p ${player}">
+					<form onsubmit="return false;">
+						<input type="reset" id="userReset" style="position: fixed; left: -200px; display: none;">
+						<label for="userquery" id="labelQuery"><h2>Guess ${turn}:</h2></label><br>
+						<input type="number" id="userquery" required><br>
+						<input type="submit" id="submitButtonUser" value="Confirm" onclick="userResp()">
+					</form>
+				</section>
+			</div>
 		`;
+	}
 	document.querySelector("#userquery").focus();
-	turn++;
 	return;
 }
