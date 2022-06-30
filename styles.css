@@ -345,6 +345,11 @@ div.contain section.s:hover{
 	color: black;
 }
 
+div.contain section.p:hover{
+	background-color: lightgreen;
+	color: black;
+}
+
 .invisible{
 	display: none;
 }
