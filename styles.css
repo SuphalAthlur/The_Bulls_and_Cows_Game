@@ -67,7 +67,7 @@ nav{
 	background-color: #D89E77;
 	max-width: 100%;
 	margin: 0px;
-	padding: 10px;
+	padding: 15px;
 	z-index: 2;
 	position: relative;
 	top: -7px;
@@ -377,21 +377,20 @@ section.resp.s form input[type="number"]{
 div.ready{
 	text-align: center;
 	align-content: center;
-	padding: 40px 0px 20px 0px;
+	padding: 40px 0px 40px 0px;
 	z-index: 1;
 }
 
 #begin{
-	padding: 20px;
-	width: 300px;
-	font-size: 30px;
+	padding: 10px;
+	width: 200px;
+	font-size: 20px;
 	font-weight: bold;
 	background-color: #lightgrey;
 	color: #353935;
 	text-align: center;
-	border-radius: 50px;
-	border-width: 6px;
-	border: 4px solid #353935;
+	border-radius: 25px;
+	border: 3px solid #353935;
 	transition-duration: 0.3s;
 }
 
@@ -421,7 +420,7 @@ div.ready{
 	color: #353932;
 }
 
-#toss .inpBtn {
+.inpBtn {
 	display: inline-block;
     outline: 0;
     cursor: pointer;
@@ -440,7 +439,7 @@ div.ready{
     transition-property: color, background-color, border-color;
 	margin: 0px 20px;
 }
-#toss .inpBtn:hover{
+.inpBtn:hover{
     color: #ffffff;
     background-color: #0366d6;
     border-color: #1b1f2326;
@@ -450,7 +449,7 @@ div.ready{
 
 div.upHeading{
 	position: sticky;
-	top: 63px;
+	top: 73px;
 	z-index: 2;
 	margin-top: 0px;
 	background-color: #B6D0E2;

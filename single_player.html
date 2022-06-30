@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Bulls & Cows Game</title>
+	<link rel="stylesheet" href="styles.css">
+	
+</head>
+<body>
+	<header>
+		<ul class="gameHeading">
+			<li class="clipart"><img src="img/bullRight.png" alt="Image of Bull"></li>
+			<li class="gameHeading"><a href="index.html">
+				The <div class="bulls">Bulls</div> & <div class="cows">Cows </div><br>Game</li>
+			</a><li class="clipart"><img src="img/cowLeft.png" alt="Image of Bull"></li>
+		</ul>
+		<section><span>The <div class="bulls">Bulls</div> & <div class="cows">Cows</div><br>Game</span></section>
+		<!-- <span><img src="img/bg.png" alt="Image of game logo"></span> -->
+	</header>
+	<nav style="border: 2px solid black; position: sticky; top: 0px;">
+		<ul>
+			<li><a class="first" href="index.html">Home</a></li>
+			<li><a class="inFocus" href="single_player.html">Single Player</a></li>
+			<li><a href="system.html">System Player</a></li>
+			<!-- <li><a href="">Lalalala</a></li> -->
+		</ul>
+	</nav>
+	<script src="single_player.js"></script>
+	<div class="ready">
+		<input type="button" value="Begin Game" id="begin" onclick="initiate()">
+	</div>
+</body>
