@@ -73,16 +73,53 @@ function toss(choice){
 		<div id="toss">
 			<h2>You have chosen ${choice}</h2>
 			<h1>It's ${verdict}!</h1>
-			<input type="button" class="inpBtn" onclick="initiate()" value="Proceed">
+			<input type="button" class="inpBtn" onclick="numberPick()" value="Proceed">
 		</div>
 	`;
-	// document.querySelector(".inpBtn").focus();
+}
+
+function numberPick(){
+	document.querySelector("#toss").remove();
+	document.querySelector("div.ready").innerHTML += `
+		<div id="toss">
+			<h1>Pick a number</h1>
+			<h2>with 4 distinct digits</h2>
+			<input type="button" class="inpBtn" onclick="initiate()" value="Ready">
+		</div>
+	`;
 }
 
 function initiate(){
 	document.querySelector("#toss").remove();
 	preCompute();
-	// document.querySelector("#toss").remove();
+	let leftName="YOU";
+	let rightName="SYSTEM";
+	let leftAbv="p";
+	let rightAbv="s";
+	if (!pFirst){
+		let shift=leftName;
+		leftName=rightName;
+		rightName=shift;
+		shift=leftAbv;
+		leftAbv=rightAbv;
+		rightAbv=shift;
+	}
+	document.querySelector("div.ready").remove();
+	document.querySelector("body").innerHTML+=`<div class="contain"></div>`;
+	document.querySelector("div.contain").innerHTML += `
+		<div class="upHeading">
+			<div class="sidebyside left">
+				<section class="resp ${leftAbv} left heading">
+					<h2>${leftName}</h2>
+				</section>
+			</div>
+			<div class="sidebyside right">
+				<section class="resp ${rightAbv} right heading">
+					<h2>${rightName}</h2>
+				</section>
+			</div>
+		</div><br>
+	`;
 	if (pFirst) {
 		document.querySelector("div.contain").innerHTML += `
 			<div class="sidebyside ${player}" id="userBox">
