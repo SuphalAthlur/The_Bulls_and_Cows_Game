@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs'); %>
+	<nav style="border: 2px solid black; position: sticky; top: 0px;">
+		<ul>
+			<li><a class="first" href="/home">Home</a></li>
+			<li><a href="/single_player">Single Player</a></li>
+			<li><a class="inFocus" href="/system_player">System Player</a></li>
+			<!-- <li><a href="">Lalalala</a></li> -->
+		</ul>
+	</nav>
+	<div class="contain">
+		<div class="upHeading">
+			<div class="sidebyside left">
+				<section class="resp <%= leftAbv %> left heading">
+					<h2><%= leftName %></h2>
+				</section>
+			</div>
+			<div class="sidebyside right">
+				<section class="resp <%= rightAbv %> right heading">
+					<h2><%= rightName %></h2>
+				</section>
+			</div>
+		</div><br>
+		<% if (pFirst) { %>
+		<div class="sidebyside <%= player %>" id="userBox">
+			<section class="resp p <%= player %>">
+				<form onsubmit="return false;">
+					<input type="reset" id="userReset" style="position: fixed; left: -200px; display: none;">
+					<label for="userquery" id="labelQuery"><h2>Guess <%= turn %>:</h2></label><br>
+					<input type="number" id="userquery" placeholder="Guess wise" name="userquery"><br>
+					<input type="button" id="submitButtonUser" value="Confirm">
+				</form>
+			</section>
+			<script>
+				document.querySelector ("#submitButtonUser")
+					.addEventListener ("click", (e) => {
+						console.log("init");
+						fetch ("/system_player/game", {method: "POST"})
+						.then (response => response.json())
+						.then (obj => {
+							if (obj.hasOwnProperty ('msgdir')) {
+								document.querySelector ("#userReset").click();
+								alert (obj.msgdir);
+								document.querySelector ("#userquery").focus();
+							}
+							else {
+								document.querySelector("#userBox").remove();
+								document.querySelector(".contain").innerHTML += obj.htmlapd1;
+								document.querySelector(".contain").innerHTML += obj.htmlapd2;
+								alert (obj.alrtmsg);
+							}
+						})
+						.catch (e => console.log(e));
+					});
+					document.querySelector("#userquery").focus();
+			</script>
+		</div>
+		<% } else { %>
+		<div class="sidebyside <%= system %>" id="sysBox">
+			<section class="resp s <%= system %>">
+				<form onsubmit="return false;">
+					<h2>Guess <%= turn %>: <%= sysQ %></h2>
+					<input type="reset" id="sysReset" style="position: fixed; left: -200px; display: none;">
+					<label for="sysquerybulls" id="labelQuery2">Bulls: </label>
+					<input type="number" id="sysquerybulls" name="sysquerybulls" required><br>
+					<label for="sysquerycows" id="labelQuery1">Cows: </label>
+					<input type="number" id="sysquerycows" name="sysquerycows" required><br>
+					<input type="button" id="submitButtonSys" value="Confirm">
+				</form>
+			</section>
+			<script>
+				document.querySelector ("#submitButtonSys")
+					.addEventListener ("click", (e) => {
+						console.log("init");
+						fetch ("/system_player/game", {method: "POST"})
+						.then (response => response.json())
+						.then (obj => {
+							if (obj.hasOwnProperty ('msgdir')) {
+								document.querySelector ("#userReset").click();
+								alert (obj.msgdir);
+								document.querySelector ("#userquery").focus();
+							}
+							else {
+								document.querySelector("#sysBox").remove();
+								document.querySelector(".contain").innerHTML += obj.htmlapd1;
+								document.querySelector(".contain").innerHTML += obj.htmlapd2;
+								alert (obj.alrtmsg);
+							}
+						})
+						.catch (e => console.log(e));
+					});
+				document.querySelector("#sysquerybulls").focus();
+			</script>
+		</div>
+		<% } %>
+	</div>
+	<div class="ready">
+		<input type="button" value="Forfeit" id="begin">
+	</div>
+</body>

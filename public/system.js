@@ -54,7 +54,7 @@ function begintoss(){
 			<h2>Winner goes first</h2>
 			<input type="button" class="inpBtn" value="Heads" onclick="toss('Heads')">
 			<input type="button" class="inpBtn" value="Tails" onclick="toss('Tails')">
-		</toss>
+		</div>
 	`;
 }
 

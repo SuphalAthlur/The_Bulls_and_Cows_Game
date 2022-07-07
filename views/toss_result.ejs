@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs'); %>
+	<nav style="border: 2px solid black; position: sticky; top: 0px;">
+		<ul>
+			<li><a class="first" href="/home">Home</a></li>
+			<li><a href="/single_player">Single Player</a></li>
+			<li><a class="inFocus" href="/system_player">System Player</a></li>
+			<!-- <li><a href="">Lalalala</a></li> -->
+		</ul>
+	</nav>
+	<div class="ready">
+		<div id="toss">
+			<h2>You have chosen <%= took %></h2>
+			<h1>It's <%= outcome %>!</h1>
+			<input type="button" class="inpBtn" value="Proceed" id="trgt">
+			<script>
+				document.querySelector("#trgt").addEventListener("click",(e) => {
+					fetch ('/system_player/toss_result', {method: "POST"})
+						.then(response => response.json())
+						.then(data => window.location.href = data.redirect)
+						.catch(err => console.log(err));
+				});
+			</script>
+		</div>
+	</div>
+</body>

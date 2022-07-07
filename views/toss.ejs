@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs'); %>
+	<nav style="border: 2px solid black; position: sticky; top: 0px;">
+		<ul>
+			<li><a class="first" href="/home">Home</a></li>
+			<li><a href="/single_player">Single Player</a></li>
+			<li><a class="inFocus" href="/system_player">System Player</a></li>
+			<!-- <li><a href="">Lalalala</a></li> -->
+		</ul>
+	</nav>
+	<div class="ready">
+		<div id="toss">
+			<h1>Call!</h1>
+			<h2>Winner goes first</h2>
+			<input type="button" class="inpBtn" value="Heads" id="heads">
+			<input type="button" class="inpBtn" value="Tails" id="tails">
+			<script>
+				document.querySelector("#heads").addEventListener("click",(e) => {
+					fetch ('/system_player/toss', {method: "POST"},)
+						.then(response => response.json())
+						.then(data => window.location.href = data.redirect)
+						.catch(err => console.log(err));
+				});
+				document.querySelector("#tails").addEventListener('click',(e) => {
+					fetch ('/system_player/toss',{method: 'PUT'})
+						.then(response => response.json())
+						.then(data => window.location.href = data.redirect)
+						.catch(err => console.log(err));
+				});
+			</script>
+		</div>
+	</div>
+</body>
