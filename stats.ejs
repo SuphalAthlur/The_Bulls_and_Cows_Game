@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs'); %>
+	<nav style="border: 2px solid black; position: sticky; top: 0px;">
+		<ul>
+			<li><a class="first" href="home_page">Home</a></li>
+			<li><a href="single_player">Single Player</a></li>
+			<li><a class="inFocus" href="system_player">System Player</a></li>
+			<!-- <li><a href="">Lalalala</a></li> -->
+		</ul>
+	</nav>
+	<div class="ready">
+		<h3>${user_name}'s Stats -</h3>
+		<ul>
+			<li>Number of wins: ${wins}</li>
+			<li>Number of losses: ${loss}</li>
+			<li>Average time taken for each turn: ${t_avg}</li>
+			<li>Average time taken for each game: ${tgame_avg}</li>
+		</ul>
+	</div>
+</body>

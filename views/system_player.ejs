@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header.ejs'); %>
+	<nav style="border: 2px solid black; position: sticky; top: 0px;">
+		<ul>
+			<li><a class="first" href="home_page">Home</a></li>
+			<li><a href="single_player">Single Player</a></li>
+			<li><a class="inFocus" href="system_player">System Player</a></li>
+			<li><a href="stats">Stats</a></li>
+		</ul>
+	</nav>
+	<div class="ready">
+		<form action="/system_player/toss" method="GET">
+			<input type="submit" value="Begin Game" id="begin">
+		</form>
+	</div>
+</body>
